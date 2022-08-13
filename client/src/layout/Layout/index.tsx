@@ -1,6 +1,8 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { ToastContainer } from "react-toastify";
+import { LayoutContainer } from "layout/Layout/styles";
+import { TOAST_DURATION } from "constants/toast";
+
 import "react-toastify/dist/ReactToastify.css";
 
 interface LayoutProps {
@@ -11,16 +13,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutContainer>
       {children}
-      <ToastContainer />
+      <ToastContainer autoClose={TOAST_DURATION} />
     </LayoutContainer>
   );
 };
-
-const LayoutContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 375px;
-  margin: 0 auto;
-`;
 
 export default Layout;

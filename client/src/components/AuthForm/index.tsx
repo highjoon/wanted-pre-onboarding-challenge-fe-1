@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { Box, Button, TextField } from "@mui/material";
 import authMessage from "constants/authMessage";
+import { TOAST_ID } from "constants/toast";
 import authAPI from "api/auth";
 import localStorage from "utils/localStorage";
 import { IAuthForm, ServerError, AuthType } from "types/auth";
@@ -23,10 +24,10 @@ const AuthForm = ({ authType, onToggleAuthType }: IProps) => {
   const signUp = async ({ email, password }: IAuthForm) => {
     try {
       const data = await authAPI.signUp({ email, password });
-      toast.success(data.message);
+      toast.success(data.message, { toastId: TOAST_ID.SIGN_UP_SUCCEEDED });
     } catch (error) {
       const serverError = error as AxiosError<ServerError>;
-      toast.error(serverError.response?.data.details);
+      toast.error(serverError.response?.data.details, { toastId: TOAST_ID.SIGN_UP_ERROR });
     }
   };
 
@@ -34,11 +35,11 @@ const AuthForm = ({ authType, onToggleAuthType }: IProps) => {
     try {
       const { message, token } = await authAPI.signIn({ email, password });
       localStorage.setLocalStorage("authToken", token);
-      toast.success(message);
+      toast.success(message, { toastId: TOAST_ID.SIGN_IN_SUCCEEDED });
       navigate("/");
     } catch (error) {
       const serverError = error as AxiosError<ServerError>;
-      toast.error(serverError.response?.data.details);
+      toast.error(serverError.response?.data.details, { toastId: TOAST_ID.SIGN_IN_ERROR });
     }
   };
 
