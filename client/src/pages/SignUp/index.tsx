@@ -3,8 +3,14 @@ import { toast } from "react-toastify";
 import styled from "@emotion/styled";
 import { Box, Button, TextField } from "@mui/material";
 import authMessage from "constants/authMessage";
+import authAPI from "api/auth";
+import { IAuthForm } from "types/auth";
+import { AxiosError } from "axios";
+import localStorage from "utils/localStorage";
+import { useNavigate } from "react-router-dom";
 
 type AuthType = "signUp" | "signIn";
+type ServerError = { details: string };
 
 const SignUp = () => {
   const [authType, setAuthType] = useState<AuthType>("signUp");
@@ -12,9 +18,32 @@ const SignUp = () => {
   const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const onToggleAuthType = () => {
     authType === "signUp" ? setAuthType("signIn") : setAuthType("signUp");
+  };
+
+  const signUp = async ({ email, password }: IAuthForm) => {
+    try {
+      const data = await authAPI.signUp({ email, password });
+      toast.success(data.message);
+    } catch (error) {
+      const serverError = error as AxiosError<ServerError>;
+      toast.error(serverError.response?.data.details);
+    }
+  };
+
+  const signIn = async ({ email, password }: IAuthForm) => {
+    try {
+      const { message, token } = await authAPI.signIn({ email, password });
+      localStorage.setLocalStorage("authToken", token);
+      toast.success(message);
+      navigate("/");
+    } catch (error) {
+      const serverError = error as AxiosError<ServerError>;
+      toast.error(serverError.response?.data.details);
+    }
   };
 
   const onEmailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +66,12 @@ const SignUp = () => {
 
   const onClickSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const emailInputValue = emailRef?.current?.value;
-    const passwordInputValue = passwordRef?.current?.value;
-    toast.success(`${emailInputValue} ${passwordInputValue}`);
+    if (emailRef.current && passwordRef.current) {
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
+      if (authType === "signUp") signUp({ email, password });
+      if (authType === "signIn") signIn({ email, password });
+    }
   };
 
   return (
