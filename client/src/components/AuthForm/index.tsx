@@ -37,7 +37,7 @@ const AuthForm = ({ authType, onToggleAuthType }: IProps) => {
       const { message, token } = await authAPI.signIn({ email, password });
       localStorage.setStorage(tokenKey, token);
       toast.success(message, { toastId: TOAST_ID.SIGN_IN_SUCCEEDED });
-      navigate("/");
+      navigate("/todo");
     } catch (error) {
       const serverError = error as AxiosError<ServerError>;
       toast.error(serverError.response?.data.details, { toastId: TOAST_ID.SIGN_IN_ERROR });

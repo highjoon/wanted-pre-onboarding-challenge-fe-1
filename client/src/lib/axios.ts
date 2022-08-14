@@ -6,11 +6,10 @@ import { tokenKey } from "constants/auth";
 import { ServerError } from "types/auth";
 import localStorage from "utils/localStorage";
 
-const token = localStorage.getStorage(tokenKey);
-
 const instance = axios.create({ baseURL: BASE_URL });
 
 const setToken = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  const token = localStorage.getStorage(tokenKey);
   if (token) config.headers = { Authorization: token };
   return config;
 };
