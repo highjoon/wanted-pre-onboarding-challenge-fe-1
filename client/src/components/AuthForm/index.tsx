@@ -75,7 +75,7 @@ const AuthForm = ({ authType, onToggleAuthType }: IProps) => {
     <>
       <Box
         component="form"
-        sx={{ display: "flex", flexDirection: "column", gap: "25px" }}
+        sx={{ display: "flex", flexDirection: "column", width: "300px", gap: "25px" }}
         onSubmit={onClickSubmitHandler}
       >
         <TextField

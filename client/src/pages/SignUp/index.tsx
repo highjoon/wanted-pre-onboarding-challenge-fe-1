@@ -4,7 +4,7 @@ import AuthForm from "components/AuthForm";
 import { AuthType } from "types/auth";
 
 const SignUp = () => {
-  const [authType, setAuthType] = useState<AuthType>("signUp");
+  const [authType, setAuthType] = useState<AuthType>("signIn");
 
   const onToggleAuthType = () => {
     authType === "signUp" ? setAuthType("signIn") : setAuthType("signUp");

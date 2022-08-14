@@ -2,7 +2,9 @@ import styled from "@emotion/styled";
 
 export const LayoutContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   width: 375px;
+  height: 100vh;
   margin: 0 auto;
+  gap: 25px;
 `;

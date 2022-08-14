@@ -1,23 +1,30 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSetRecoilState } from "recoil";
 import { Global } from "@emotion/react";
 import Router from "router/router";
 import GlobalStyles from "styles/globalStyles";
 import localStorage from "utils/localStorage";
 import authMessage from "constants/authMessage";
+import { tokenValidState } from "recoil/auth";
 
 const App = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const setIsTokenValid = useSetRecoilState<boolean>(tokenValidState);
 
   useEffect(() => {
     const token = localStorage.getLocalStorage("authToken");
 
-    if (!token) {
-      toast.error(authMessage.SIGN_IN_REQUIRED, { toastId: "tokenError" });
+    if (token) {
+      setIsTokenValid(true);
+    } else {
+      setIsTokenValid(false);
+      if (location.pathname !== "/auth") toast.error(authMessage.SIGN_IN_REQUIRED, { toastId: "tokenError" });
       navigate("/auth", { replace: true });
     }
-  }, [navigate]);
+  }, [location.pathname, navigate, setIsTokenValid]);
 
   return (
     <div className="App">
