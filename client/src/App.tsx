@@ -18,10 +18,8 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getStorage(tokenKey);
-
     if (token) {
       setIsTokenValid(true);
-      navigate("/todo", { replace: true });
     } else {
       setIsTokenValid(false);
       if (location.pathname !== "/auth") toast.error(authMessage.SIGN_IN_REQUIRED, { toastId: TOAST_ID.TOKEN_ERROR });

@@ -1,9 +1,19 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
 import TodoCard from "components/TodoCard";
+import { tokenKey } from "constants/auth";
 import useGetTodoList from "hooks/useGetTodoList";
+import localStorage from "utils/localStorage";
 
-const Todo = () => {
+const TodoList = () => {
   const { data, isLoading } = useGetTodoList();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getStorage(tokenKey);
+    if (!token) navigate("/auth", { replace: true });
+  }, [navigate]);
 
   if (isLoading) {
     return (
@@ -24,4 +34,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default TodoList;

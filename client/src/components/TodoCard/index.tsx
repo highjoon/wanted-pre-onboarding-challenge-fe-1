@@ -1,18 +1,20 @@
+import { Link, useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Button } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useSetRecoilState } from "recoil";
+import { Stack, styled, Paper, Button } from "@mui/material";
 import { ButtonContainer } from "components/TodoCard/styles";
 import useDeleteTodo from "hooks/useDeleteTodo";
-import { useSetRecoilState } from "recoil";
 import { idToBeUpdatedState, modalModeState, modalState } from "recoil/todo";
 
-interface Props {
+interface IProps {
   id: string;
   title: string;
   content: string;
 }
 
-const TodoCard = ({ id, title, content }: Props) => {
+const TodoCard = ({ id, title, content }: IProps) => {
+  const params = useParams();
+  const paramsId = params.id;
   const { mutate: deleteTodo } = useDeleteTodo();
   const setIsModalOpen = useSetRecoilState(modalState);
   const setModalMode = useSetRecoilState(modalModeState);
@@ -38,49 +40,41 @@ const TodoCard = ({ id, title, content }: Props) => {
 
   return (
     <>
-      <Accordion disableGutters={true}>
-        <AccordionSummary
+      <Link to={`/todo/${id}`} style={{ textDecoration: "none" }}>
+        <Stack
           sx={{
-            margin: "0px",
             backgroundColor: "rgb(188, 139, 224, 0.5)",
-            borderTop: "1px solid rgb(50, 50, 50, 0.5)",
           }}
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+          direction="column"
+          justifyContent="flex-start"
         >
-          <Typography
-            sx={{
-              fontSize: "20px",
-              fontWeight: "bold",
-            }}
-          >
+          <Item sx={{ display: "flex", flexDirection: "column", fontSize: "20px", fontWeight: "bold", gap: "15px" }}>
             {title}
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-            borderTop: "1px solid rgb(50, 50, 50, 0.5)",
-            backgroundColor: "rgb(188, 139, 224, 0.2)",
-            overflowWrap: "break-word",
-          }}
-        >
-          <Typography>{content}</Typography>
-          <ButtonContainer>
-            <Button variant="contained" color="secondary" onClick={onToggleOpenModal}>
-              수정
-            </Button>
-            <Button variant="contained" color="secondary" onClick={onClickDeleteTodo}>
-              삭제
-            </Button>
-          </ButtonContainer>
-        </AccordionDetails>
-      </Accordion>
+            {paramsId === id && (
+              <>
+                <Item sx={{ backgroundColor: "#ffffff" }}>{content}</Item>
+                <ButtonContainer>
+                  <Button variant="contained" color="secondary" onClick={onToggleOpenModal}>
+                    수정
+                  </Button>
+                  <Button variant="contained" color="secondary" onClick={onClickDeleteTodo}>
+                    삭제
+                  </Button>
+                </ButtonContainer>
+              </>
+            )}
+          </Item>
+        </Stack>
+      </Link>
     </>
   );
 };
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: "rgb(188, 139, 224, 0.2)",
+  ...theme.typography.body2,
+  padding: theme.spacing(2.5),
+  color: theme.palette.text.secondary,
+}));
 
 export default TodoCard;

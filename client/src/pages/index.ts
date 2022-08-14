@@ -1,4 +1,4 @@
 import SignUp from "pages/SignUp";
-import ToDo from "pages/Todo";
+import TodoList from "pages/TodoList";
 
-export { SignUp, ToDo };
+export { SignUp, TodoList };
