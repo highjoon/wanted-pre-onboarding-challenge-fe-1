@@ -2,11 +2,11 @@ import { useQuery, UseQueryResult } from "react-query";
 import { ITodo } from "types/todo";
 import todoAPI from "api/todo";
 
-const useGetTodos = (): UseQueryResult<ITodo> => {
+const useGetTodoList = (): UseQueryResult<ITodo[]> => {
   return useQuery("todos", async () => {
-    const { data }: ITodo = await todoAPI.getTodos();
+    const { data } = await todoAPI.getTodoList();
     return data;
   });
 };
 
-export default useGetTodos;
+export default useGetTodoList;

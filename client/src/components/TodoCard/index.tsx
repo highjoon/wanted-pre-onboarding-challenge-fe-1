@@ -6,11 +6,12 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface Props {
+  id: string;
   title: string;
   content: string;
 }
 
-const TodoCard = ({ title, content }: Props) => {
+const TodoCard = ({ id, title, content }: Props) => {
   return (
     <>
       <Accordion disableGutters={true}>

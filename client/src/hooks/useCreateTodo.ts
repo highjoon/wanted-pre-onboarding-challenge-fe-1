@@ -1,9 +1,20 @@
-import { useMutation, UseMutationResult } from "react-query";
-import { ITodo } from "types/todo";
+import { AxiosError } from "axios";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import todoAPI from "api/todo";
+import { INewTodo, ITodo } from "types/todo";
 
-const useCreateTodo = (title: string, content: string): UseMutationResult<ITodo> => {
-  return useMutation(() => todoAPI.createTodo(title, content));
+const useCreateTodo = () => {
+  return useMutation<{ data: ITodo }, AxiosError, INewTodo>(
+    "newTodo",
+    ({ title, content }) => todoAPI.createTodo(title, content),
+    {
+      onSuccess: ({ data }) => {
+        const { title } = data;
+        toast.success(`${title} 생성 완료`);
+      },
+    }
+  );
 };
 
 export default useCreateTodo;

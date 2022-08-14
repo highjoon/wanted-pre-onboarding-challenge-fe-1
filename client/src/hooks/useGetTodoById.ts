@@ -1,12 +1,10 @@
-import { useQuery, UseQueryResult } from "react-query";
+import { useQuery } from "react-query";
 import { ITodo } from "types/todo";
 import todoAPI from "api/todo";
+import { AxiosError } from "axios";
 
-const useGetTodoById = (id: string): UseQueryResult<ITodo> => {
-  return useQuery(`todo${id}`, async () => {
-    const { data }: ITodo = await todoAPI.getTodos();
-    return data;
-  });
+const useGetTodoById = (id: string) => {
+  return useQuery<{ data: ITodo }, AxiosError>(["todo", id], () => todoAPI.getTodoById(id));
 };
 
 export default useGetTodoById;

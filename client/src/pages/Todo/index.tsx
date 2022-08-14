@@ -1,198 +1,24 @@
+import { Box, CircularProgress } from "@mui/material";
 import TodoCard from "components/TodoCard";
-
-const mockAPI = {
-  data: [
-    {
-      title: "hi",
-      content:
-        "hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-    {
-      title: "hi",
-      content: "hello",
-      id: "z3FGrcRL55qDCFnP4KRtn",
-      createdAt: "2022-07-24T14:15:55.537Z",
-      updatedAt: "2022-07-24T14:15:55.537Z",
-    },
-  ],
-};
+import useGetTodoList from "hooks/useGetTodoList";
 
 const Todo = () => {
+  const { data, isLoading } = useGetTodoList();
+
+  if (isLoading) {
+    return (
+      <>
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      </>
+    );
+  }
+
   return (
     <>
-      {mockAPI.data.map((v) => (
-        <TodoCard key={v.id} title={v.title} content={v.content} />
+      {data?.map((todo) => (
+        <TodoCard key={todo.id} id={todo.id} title={todo.title} content={todo.content} />
       ))}
     </>
   );
