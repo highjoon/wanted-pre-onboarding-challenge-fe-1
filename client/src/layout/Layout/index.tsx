@@ -1,7 +1,7 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import { LayoutContainer } from "layout/Layout/styles";
-import Header from "components/header";
+import { Header } from "components";
 import { TOAST_DURATION } from "constants/toast";
 
 import "react-toastify/dist/ReactToastify.css";

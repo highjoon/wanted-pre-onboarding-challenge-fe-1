@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Title } from "pages/SignUp/styles";
-import AuthForm from "components/AuthForm";
+import { AuthForm } from "components";
 import { AuthType } from "types/auth";
 
 const SignUp = () => {
