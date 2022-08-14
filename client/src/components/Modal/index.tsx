@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
+import { useQueryClient } from "react-query";
 import { Box, Button, Modal as TodoModal } from "@mui/material";
 import { modalStyle, CustomTextField } from "components/Modal/styles";
 import { modalState } from "recoil/todo";
 import useCreateTodo from "hooks/useCreateTodo";
-import { useQueryClient } from "react-query";
 
 const Modal = () => {
   const titleRef = useRef<HTMLInputElement>(null);

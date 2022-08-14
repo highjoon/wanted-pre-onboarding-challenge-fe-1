@@ -1,9 +1,8 @@
-import { ButtonContainer } from "components/TodoCard/styles";
-import { Accordion, Button } from "@mui/material";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
+import { useQueryClient } from "react-query";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { ButtonContainer } from "components/TodoCard/styles";
+import useDeleteTodo from "hooks/useDeleteTodo";
 
 interface Props {
   id: string;
@@ -12,6 +11,20 @@ interface Props {
 }
 
 const TodoCard = ({ id, title, content }: Props) => {
+  const { mutate: deleteTodo } = useDeleteTodo();
+  const queryClient = useQueryClient();
+
+  const onClickDeleteTodo = () => {
+    deleteTodo(
+      { id },
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries("todos");
+        },
+      }
+    );
+  };
+
   return (
     <>
       <Accordion disableGutters={true}>
@@ -49,7 +62,7 @@ const TodoCard = ({ id, title, content }: Props) => {
             <Button variant="contained" color="secondary">
               수정
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={onClickDeleteTodo}>
               삭제
             </Button>
           </ButtonContainer>

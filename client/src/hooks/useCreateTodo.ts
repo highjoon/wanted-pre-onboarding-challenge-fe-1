@@ -11,7 +11,7 @@ const useCreateTodo = () => {
     {
       onSuccess: ({ data }) => {
         const { title } = data;
-        toast.success(`${title} 생성 완료`);
+        toast.success(`${title} 생성 완료되었습니다.`);
       },
     }
   );
