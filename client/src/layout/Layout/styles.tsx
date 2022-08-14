@@ -6,4 +6,5 @@ export const LayoutContainer = styled.div`
   width: 375px;
   height: 100vh;
   margin: 0 auto;
+  overflow: scroll;
 `;

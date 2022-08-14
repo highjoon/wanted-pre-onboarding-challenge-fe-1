@@ -10,6 +10,8 @@ const Header = () => {
   const navigate = useNavigate();
   const [isTokenValid, setIsTokenValid] = useRecoilState<boolean>(tokenValidState);
 
+  const onClickCreateTodo = () => {};
+
   const onClickSignOut = () => {
     localStorage.removeStorage(tokenKey);
     setIsTokenValid(false);
@@ -18,13 +20,16 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      <ButtonContainer>
-        {isTokenValid && (
+      {isTokenValid && (
+        <ButtonContainer>
+          <Button variant="text" onClick={onClickCreateTodo}>
+            추가
+          </Button>
           <Button variant="text" onClick={onClickSignOut}>
             로그아웃
           </Button>
-        )}
-      </ButtonContainer>
+        </ButtonContainer>
+      )}
     </HeaderWrapper>
   );
 };
