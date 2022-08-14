@@ -5,15 +5,17 @@ import { Button } from "@mui/material";
 import { tokenValidState } from "recoil/auth";
 import localStorage from "utils/localStorage";
 import { tokenKey } from "constants/auth";
-import { modalState } from "recoil/todo";
+import { modalModeState, modalState } from "recoil/todo";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isTokenValid, setIsTokenValid] = useRecoilState<boolean>(tokenValidState);
   const setIsModalOpen = useSetRecoilState(modalState);
+  const setModalMode = useSetRecoilState(modalModeState);
 
   const onToggleOpenModal = () => {
     setIsModalOpen(true);
+    setModalMode("create");
   };
 
   const onClickSignOut = () => {

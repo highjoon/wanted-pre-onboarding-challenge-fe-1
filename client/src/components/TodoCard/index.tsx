@@ -3,6 +3,8 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography, Button } fro
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ButtonContainer } from "components/TodoCard/styles";
 import useDeleteTodo from "hooks/useDeleteTodo";
+import { useSetRecoilState } from "recoil";
+import { idToBeUpdatedState, modalModeState, modalState } from "recoil/todo";
 
 interface Props {
   id: string;
@@ -12,6 +14,9 @@ interface Props {
 
 const TodoCard = ({ id, title, content }: Props) => {
   const { mutate: deleteTodo } = useDeleteTodo();
+  const setIsModalOpen = useSetRecoilState(modalState);
+  const setModalMode = useSetRecoilState(modalModeState);
+  const setIdTobeUpdated = useSetRecoilState(idToBeUpdatedState);
   const queryClient = useQueryClient();
 
   const onClickDeleteTodo = () => {
@@ -23,6 +28,12 @@ const TodoCard = ({ id, title, content }: Props) => {
         },
       }
     );
+  };
+
+  const onToggleOpenModal = () => {
+    setIsModalOpen(true);
+    setModalMode("update");
+    setIdTobeUpdated(id);
   };
 
   return (
@@ -59,7 +70,7 @@ const TodoCard = ({ id, title, content }: Props) => {
         >
           <Typography>{content}</Typography>
           <ButtonContainer>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={onToggleOpenModal}>
               수정
             </Button>
             <Button variant="contained" color="secondary" onClick={onClickDeleteTodo}>
