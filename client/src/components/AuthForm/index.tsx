@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 import { Box, Button, TextField } from "@mui/material";
 import authMessage from "constants/authMessage";
 import { TOAST_ID } from "constants/toast";
+import { tokenKey } from "constants/auth";
 import authAPI from "api/auth";
 import localStorage from "utils/localStorage";
 import { IAuthForm, ServerError, AuthType } from "types/auth";
@@ -34,7 +35,7 @@ const AuthForm = ({ authType, onToggleAuthType }: IProps) => {
   const signIn = async ({ email, password }: IAuthForm) => {
     try {
       const { message, token } = await authAPI.signIn({ email, password });
-      localStorage.setLocalStorage("authToken", token);
+      localStorage.setStorage(tokenKey, token);
       toast.success(message, { toastId: TOAST_ID.SIGN_IN_SUCCEEDED });
       navigate("/");
     } catch (error) {

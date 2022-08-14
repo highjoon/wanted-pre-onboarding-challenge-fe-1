@@ -6,4 +6,5 @@ export const TOAST_ID = {
   SIGN_IN_SUCCEEDED: "signInSuccess",
   SIGN_UP_ERROR: "signUpError",
   SIGN_IN_ERROR: "signInError",
+  TOKEN_ERROR: "tokenError",
 };

@@ -7,6 +7,8 @@ import Router from "router/router";
 import GlobalStyles from "styles/globalStyles";
 import localStorage from "utils/localStorage";
 import authMessage from "constants/authMessage";
+import { tokenKey } from "constants/auth";
+import { TOAST_ID } from "constants/toast";
 import { tokenValidState } from "recoil/auth";
 
 const App = () => {
@@ -15,13 +17,13 @@ const App = () => {
   const setIsTokenValid = useSetRecoilState<boolean>(tokenValidState);
 
   useEffect(() => {
-    const token = localStorage.getLocalStorage("authToken");
+    const token = localStorage.getStorage(tokenKey);
 
     if (token) {
       setIsTokenValid(true);
     } else {
       setIsTokenValid(false);
-      if (location.pathname !== "/auth") toast.error(authMessage.SIGN_IN_REQUIRED, { toastId: "tokenError" });
+      if (location.pathname !== "/auth") toast.error(authMessage.SIGN_IN_REQUIRED, { toastId: TOAST_ID.TOKEN_ERROR });
       navigate("/auth", { replace: true });
     }
   }, [location.pathname, navigate, setIsTokenValid]);
